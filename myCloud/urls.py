@@ -16,12 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from authentication.views import chat_enter, users_list, user_login
+# from authentication.views import chat_enter, users_list, UserView
+from authentication.views import UsersViewSet
+
+r = DefaultRouter()
+r.register('users', UsersViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', chat_enter, name='enter'),
-    path('users/', users_list, name='listing'),
-    path('users/<str:user_login>/', user_login, name='login')
-]
+    # path('enter/', chat_enter, name='enter'),
+    # path('users/', users_list, name='listing'),
+    # path('user/<str:user_login>/', user_login, name='login')
+    # path('user/<fullName>/', UserView.as_view())
+] + r.urls
