@@ -1,4 +1,5 @@
 # from django.http import HttpResponse
+import json
 from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -22,11 +23,12 @@ from authentication.serializers import UsersSerializer
 #     user = get_object_or_404(Users, login=user_login)
 #     return HttpResponse(user)
 
-# @api_view(['GET'])
-# def chat_enter(request):
-#     data = {'сообщение': 'вы вошли в систему@api_view'}
-#     print('вы вошли в систему')
-#     return Response(data)
+@api_view(['POST'])
+def chat_enter(request):
+    data = {'сообщение': 'пришел пост запрос'}
+    # data_json = request.body.decode('utf-8')
+    print(request.body.decode('utf-8'))
+    return Response(data)
 
 # @api_view(['GET'])
 # def users_list(request):
@@ -42,5 +44,4 @@ from authentication.serializers import UsersSerializer
 class UsersViewSet(ModelViewSet):
     queryset = Users.objects.all()
     serializer_class = UsersSerializer
-    
-    # filterset_fields = ['fullName',]
+    filterset_fields = ['fullName', 'password',]
