@@ -25,10 +25,19 @@ from authentication.serializers import UsersSerializer
 
 @api_view(['POST'])
 def chat_enter(request):
-    data = {'сообщение': 'пришел пост запрос'}
+    # usersList = Users.objects.all()
+    # serializer_users = UsersSerializer(usersList, many=True)
+    # return Response(serializer_users.data)
+    
+    userReg = Users.objects.get(login='Daniil')
+    serializer_user = UsersSerializer(userReg)
+    print(serializer_user.data['password'])
+    return Response(serializer_user.data)
+
     # data_json = request.body.decode('utf-8')
-    print(request.body.decode('utf-8'))
-    return Response(data)
+    # print(json.loads(data_json))
+    print(userReg)
+    
 
 # @api_view(['GET'])
 # def users_list(request):
