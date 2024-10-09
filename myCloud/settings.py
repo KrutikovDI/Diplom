@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
 
     'authentication',
+    'fileUpLoad',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend'
     ]
 }
+
+import os
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -23,7 +23,7 @@ from authentication.views import chat_enter
 from authentication.views import UsersViewSet
 
 r = DefaultRouter()
-r.register('users', UsersViewSet)
+r.register('RegistrationUser', UsersViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

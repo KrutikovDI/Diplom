@@ -28,15 +28,22 @@ def chat_enter(request):
     # usersList = Users.objects.all()
     # serializer_users = UsersSerializer(usersList, many=True)
     # return Response(serializer_users.data)
+    data = request.body.decode('utf-8')
+    data_json = json.loads(data)
+    print(data_json)
+    userRegistration = Users.objects.get(login=data_json['login'])
+    serializer_user = UsersSerializer(userRegistration)
+    if data_json['password'] == serializer_user.data['password'] and data_json['admin'] == serializer_user.data['admin']:
+        return Response(serializer_user.data, 200)
+    elif data_json['password'] != serializer_user.data['password']:
+        return Response(status=401)
+    elif data_json['admin'] != serializer_user.data['admin']:
+        return Response(status=402)
     
-    userReg = Users.objects.get(login='Daniil')
-    serializer_user = UsersSerializer(userReg)
-    print(serializer_user.data['password'])
-    return Response(serializer_user.data)
-
-    # data_json = request.body.decode('utf-8')
-    # print(json.loads(data_json))
-    print(userReg)
+    # print(serializer_user.data['password'])
+    # print(data_json['password'])
+    # print(userReg)
+    # return Response(serializer_user.data)
     
 
 # @api_view(['GET'])
